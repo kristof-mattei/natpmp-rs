@@ -99,7 +99,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
-        uses: rui314/setup-mold@8de9eea54963d01c1a6c200606257d65bd53bea1 # v1
+        uses: rui314/setup-mold@2e332a0b602c2fc65d2d3995941b1b29a5f554a0 # v1
 
       - name: Set up toolchain
         shell: bash
@@ -178,7 +178,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
-        uses: rui314/setup-mold@8de9eea54963d01c1a6c200606257d65bd53bea1 # v1
+        uses: rui314/setup-mold@2e332a0b602c2fc65d2d3995941b1b29a5f554a0 # v1
 
       - name: Set up toolchain
         shell: bash
@@ -224,7 +224,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
-        uses: rui314/setup-mold@8de9eea54963d01c1a6c200606257d65bd53bea1 # v1
+        uses: rui314/setup-mold@2e332a0b602c2fc65d2d3995941b1b29a5f554a0 # v1
 
       - name: Set up toolchain
         shell: bash
@@ -265,7 +265,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
-        uses: rui314/setup-mold@8de9eea54963d01c1a6c200606257d65bd53bea1 # v1
+        uses: rui314/setup-mold@2e332a0b602c2fc65d2d3995941b1b29a5f554a0 # v1
 
       - name: Set up toolchain
         shell: bash
@@ -323,7 +323,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload test results
-        uses: EnricoMi/publish-unit-test-result-action@30eadd5010312f995f0d3b3cff7fe2984f69409e # v2.16.1
+        uses: EnricoMi/publish-unit-test-result-action@567cc7f8dcea3eba5da355f6ebc95663310d8a07 # v2.17.0
         with:
           check_name: Test results
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -383,7 +383,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.CACHE_NAME }}-
 
       - name: Set up mold
-        uses: rui314/setup-mold@8de9eea54963d01c1a6c200606257d65bd53bea1 # v1
+        uses: rui314/setup-mold@2e332a0b602c2fc65d2d3995941b1b29a5f554a0 # v1
 
       - name: Set up toolchain
         shell: bash
@@ -438,7 +438,7 @@ jobs:
           ./.github/scripts/update-version.sh ${{ needs.calculate-version.outputs.version }}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@d70bba72b1f3fd22344832f00baa16ece964efeb # v3.3.0
+        uses: docker/setup-buildx-action@988b5a0280414f521da01fcc63a27aeeb4b104db # v3.6.1
 
       # TODO validate no changes between github.event.pull_request.head.sha and the actual current sha (representing the hypothetical merge)
 
@@ -467,7 +467,7 @@ jobs:
             org.opencontainers.image.source=${{ github.event.pull_request.html_url }}
 
       - name: Log into registry ${{ env.REGISTRY }}
-        uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3.2.0
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -480,7 +480,7 @@ jobs:
           echo "APPLICATION_NAME=${APPLICATION_NAME##*/}" >> ${GITHUB_ENV}
 
       - name: Build Docker image
-        uses: docker/build-push-action@ca052bb54ab0790a636c9b5f226502c73d547a25 # v5.4.0
+        uses: docker/build-push-action@5cd11c3a4ced054e52742c5fd54dca954e0edd85 # v6.7.0
         with:
           build-args: |
             APPLICATION_NAME=${{ env.APPLICATION_NAME }}
@@ -496,7 +496,7 @@ jobs:
           outputs: type=docker,dest=/tmp/${{ env.PLATFORM_UNIQUE_TAG }}.tar
 
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         with:
           name: containers-${{ env.PLATFORM_PAIR }}
           path: /tmp/${{ env.PLATFORM_UNIQUE_TAG }}.tar
@@ -518,17 +518,17 @@ jobs:
       github.event_name == 'pull_request'
     steps:
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@d70bba72b1f3fd22344832f00baa16ece964efeb # v3.3.0
+        uses: docker/setup-buildx-action@988b5a0280414f521da01fcc63a27aeeb4b104db # v3.6.1
 
       - name: Download artifact
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
         with:
           path: /tmp/containers
           pattern: containers-*
           merge-multiple: true
 
       - name: Log into registry ${{ env.REGISTRY }}
-        uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3.2.0
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}

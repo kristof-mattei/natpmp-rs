@@ -3,9 +3,9 @@ name = "natpmp-rs"
 # don't change this, it's updated before an actual build by update-version.sh
 version = "0.0.0-development"
 edition = "2021"
-rust-version = "1.79.0"
+rust-version = "1.80.0"
 authors = ["Kristof Mattei"]
-description = "Rust end-to-end application"
+description = "Rust seed application"
 license-file = "LICENSE"
 categories = ["starter", "end-to-end"]
 keywords = ["integrity", "end-to-end", "starter", "docker", "release"]
