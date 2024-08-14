@@ -1,7 +1,12 @@
-use std::{env, net::Ipv4Addr, num::NonZeroU16};
+use std::env;
+use std::net::Ipv4Addr;
+use std::num::NonZeroU16;
 
-use natpmp_rs::{map_port, protocol::MappingProtocol};
-use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
+use natpmp_rs::protocol::MappingProtocol;
+use natpmp_rs::{get_public_address, map_port};
+use tracing_subscriber::layer::SubscriberExt;
+use tracing_subscriber::util::SubscriberInitExt;
+use tracing_subscriber::EnvFilter;
 
 /// starts all the tasks, such as the web server, the key refresh, ...
 /// ensures all tasks are gracefully shutdown in case of error, ctrl+c or sigterm
@@ -18,9 +23,25 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     )
     .await;
 
-    // let result = get_public_address(Ipv4Addr::new(192, 168, 12, 1).into(), None).await;
+    match result {
+        Ok(ok) => {
+            println!("{}", ok);
+        },
+        Err(error) => {
+            println!("{}", error);
+        },
+    }
 
-    println!("{:?}", result);
+    let result = get_public_address(Ipv4Addr::new(192, 168, 12, 1).into(), None).await;
+
+    match result {
+        Ok(ok) => {
+            println!("{}", ok);
+        },
+        Err(error) => {
+            println!("{}", error);
+        },
+    }
 
     Ok(())
 }

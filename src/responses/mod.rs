@@ -1,13 +1,12 @@
-use std::{net::Ipv4Addr, num::NonZeroU16};
+use std::net::Ipv4Addr;
+use std::num::NonZeroU16;
 
 use bytes::{Buf, BytesMut};
 
-use crate::{
-    errors::{NATPMPError, NATPMPResultError},
-    protocol::MappingProtocol,
-    requests::Request,
-    VERSION,
-};
+use crate::errors::{NATPMPError, NATPMPResultError};
+use crate::protocol::MappingProtocol;
+use crate::requests::Request;
+use crate::VERSION;
 
 pub(crate) trait Response {
     const SIZE: usize;
@@ -18,8 +17,8 @@ pub(crate) trait Response {
 
     fn try_from_bytes(
         opcode: u8,
-        // buffer: &[u8; Self::SIZE],
         buffer: &[u8],
+        // buffer: &[u8],
     ) -> Result<Self, NATPMPError>
     where
         Self: std::marker::Sized;
@@ -76,6 +75,19 @@ pub struct MappingResponse {
     seconds_since_epoch: u32,
 }
 
+impl std::fmt::Display for MappingResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f,
+            "Protocol: {}, internal port: {}, external port {}, lifetime: {}, secondssince epoch: {}",
+            self.protocol,
+            self.internal_port,
+            self.external_port,
+            self.lifetime,
+            self.seconds_since_epoch,
+        )
+    }
+}
+
 impl Response for MappingResponse {
     const SIZE: usize = 16;
 
@@ -89,8 +101,6 @@ impl Response for MappingResponse {
         let internal_port = buffer.get_u16();
         let external_port = buffer.get_u16();
         let lifetime = buffer.get_u32();
-
-        println!("xx");
 
         Ok(MappingResponse {
             protocol,

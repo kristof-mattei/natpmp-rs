@@ -2,19 +2,24 @@ pub mod errors;
 pub mod protocol;
 pub mod requests;
 pub mod responses;
-use crate::errors::NATPMPError;
-use crate::requests::ExternalAddressRequest;
-use crate::requests::MappingRequest;
-use crate::requests::Request;
-use crate::responses::{MappingResponse, Response};
+use std::net::Ipv4Addr;
+use std::num::NonZeroU16;
+use std::time::Duration;
+use std::{fs::read_to_string, io::ErrorKind};
 
 use protocol::MappingProtocol;
-use requests::{UnmapAllPortsRequest, UnmapPortRequest};
+use requests::external_address_request::ExternalAddressRequest;
+use requests::mapping_request::MappingRequest;
+use requests::unmap_all_request::UnmapAllPortsRequest;
+use requests::unmap_request::UnmapPortRequest;
 use responses::parse_raw_response;
 use socket2::Socket;
-use std::{fs::read_to_string, net::Ipv4Addr, num::NonZeroU16, time::Duration};
 use tokio::net::UdpSocket;
 use tracing::{event, Level};
+
+use crate::errors::NATPMPError;
+use crate::requests::Request;
+use crate::responses::{MappingResponse, Response};
 
 const VERSION: u8 = 0;
 const NATPMP_PORT: u16 = 5351;
@@ -108,8 +113,10 @@ fn build_socket() -> Result<UdpSocket, NATPMPError> {
 /// * `retry` - the number of times to retry the request if unsuccessful.
 ///              Defaults to 9 as per specification.
 ///
-/// # Errors
+/// # Returns
+/// The IP address of the gateway
 ///
+/// # Errors
 /// Described by the Error component of the Result
 pub async fn get_public_address(
     gateway_ip: Option<Ipv4Addr>,
@@ -120,22 +127,12 @@ pub async fn get_public_address(
         None => get_gateway_addr()?,
     };
 
-    let address_response =
-        send_request_with_retry(gateway_ip, ExternalAddressRequest {}, retry.unwrap_or(9)).await;
-
-    //     if addr_response.result != 0:
-    //         # sys.stderr.write("NAT-PMP error %d: %s\n" %
-    //         #                  (addr_response.result,
-    //         #                   error_str(addr_response.result)))
-    //         # sys.stderr.flush()
-    //         raise NATPMPResultError(addr_response.result,
-    //                                 error_str(addr_response.result), addr_response)
-    //     addr = addr_response.ip
-    //     return addr
-
-    let _r = address_response
-        .as_ref()
-        .inspect(|a_r| println!("{:?}", a_r));
+    let address_response = send_request_with_retry(
+        gateway_ip,
+        ExternalAddressRequest::new(),
+        retry.unwrap_or(9),
+    )
+    .await;
 
     address_response.map(|r| r.ipv4_address)
 }
@@ -323,15 +320,15 @@ pub async fn unmap_all_ports(
 async fn send_request(
     gateway_socket: &UdpSocket,
     gateway_ip: Ipv4Addr,
-    request: &impl Request,
+    request: &(impl Request + zerocopy::AsBytes),
 ) -> Result<usize, NATPMPError> {
     gateway_socket
-        .send_to(&request.to_bytes(), (gateway_ip, NATPMP_PORT))
+        .send_to(request.as_bytes(), (gateway_ip, NATPMP_PORT))
         .await
         .map_err(Into::into)
 }
 
-async fn send_request_with_retry<R: Request>(
+async fn send_request_with_retry<R: Request + zerocopy::AsBytes>(
     gateway_ip: Ipv4Addr,
     request: R,
     retry: u32,
@@ -340,7 +337,7 @@ async fn send_request_with_retry<R: Request>(
     // Source: https://www.rfc-editor.org/rfc/rfc6886#page-6:~:text=and%20waits%20250%20ms%20for%20a%20response.%20%20If%20no%0A%20%20%20NAT%2DPMP%20response%20is%20received%20from%20the%20gateway%20after%20250%20ms%2C%20the%0A%20%20%20client%20retransmits%20its%20request%20and%20waits%20500%20ms
     const BASE_TIMEOUT: u64 = 250;
 
-    let socket = build_socket().await?;
+    let socket = build_socket()?;
 
     // buffer is at minimum the size of a response, e.g. 12 for external address or 16 for port mapping
     // an error is 8, so that'll always fit
@@ -366,10 +363,11 @@ async fn send_request_with_retry<R: Request>(
                 buffer.clear();
             },
             Ok(Err(error)) => {
-                // TODO log properly
-                println!("{:?}", error);
-                // TODO if error = ICMP Port Unreachable we should break, else continue
-                break;
+                if error.kind() != ErrorKind::WouldBlock {
+                    event!(Level::ERROR, ?error);
+                    // TODO if error = ICMP Port Unreachable we should break, else continue
+                    break;
+                }
             },
             Err(_) => {
                 event!(Level::WARN, "Connection timed out, try {}/{}", tries, retry);

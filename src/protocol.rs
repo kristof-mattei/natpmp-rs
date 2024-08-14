@@ -1,8 +1,25 @@
+use zerocopy::AsBytes;
+
 #[derive(Debug, Copy, Clone)]
 #[allow(clippy::module_name_repetitions)]
+#[derive(AsBytes)]
+#[repr(u8)]
 pub enum MappingProtocol {
     UDP = 1,
     TCP,
+}
+
+impl std::fmt::Display for MappingProtocol {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                MappingProtocol::UDP => "UDP",
+                MappingProtocol::TCP => "TCP",
+            }
+        )
+    }
 }
 
 impl TryFrom<u8> for MappingProtocol {
