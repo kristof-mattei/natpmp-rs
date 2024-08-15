@@ -245,9 +245,9 @@ dependencies = [
 
 [[package]]
 name = "netdev"
-version = "0.28.0"
+version = "0.30.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db2efc0a21a3025c876092d3f122fabb1f0e21bc1d90465e0c980bad40fd753d"
+checksum = "7516ad2c46cc25da098ed7d6b9a0cbe9e1fbffbd04b1596148b95f2841179c83"
 dependencies = [
  "dlopen2",
  "libc",
