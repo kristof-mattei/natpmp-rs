@@ -48,7 +48,7 @@ tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 tracing-error = "0.2.0"
 socket2 = "0.5.7"
-libc = "0.2.155"
+libc = "0.2.156"
 netdev = "0.30.0"
 zerocopy = { version = "0.7.35", features = ["derive"] }
 
