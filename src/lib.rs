@@ -27,10 +27,7 @@ const NATPMP_PORT: u16 = 5351;
 const PATH_PROC_NET_ROUTE: &str = "/proc/net/route";
 
 fn get_gateway_addr() -> Result<Ipv4Addr, NATPMPError> {
-    let route_text = match read_to_string(PATH_PROC_NET_ROUTE) {
-        Ok(content) => content,
-        Err(_) => String::new(),
-    };
+    let route_text = read_to_string(PATH_PROC_NET_ROUTE).unwrap_or_default();
 
     // skip title
     for line in route_text.lines().skip(1) {
