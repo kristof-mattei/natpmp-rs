@@ -36,7 +36,7 @@ bytes = "1.7.2"
 color-eyre = { git = "https://github.com/kristof-mattei/eyre", branch = "bump-backtrace-rs", features = [
     "track-caller",
 ] }
-thiserror = "1.0.63"
+thiserror = "1.0.64"
 tokio = { version = "1.40.0", features = [
     "net",
     "rt-multi-thread",
