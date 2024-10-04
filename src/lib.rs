@@ -2,10 +2,11 @@ pub mod errors;
 pub mod protocol;
 pub mod requests;
 pub mod responses;
+use std::fs::read_to_string;
+use std::io::ErrorKind;
 use std::net::Ipv4Addr;
 use std::num::NonZeroU16;
 use std::time::Duration;
-use std::{fs::read_to_string, io::ErrorKind};
 
 use protocol::MappingProtocol;
 use requests::external_address_request::ExternalAddressRequest;
@@ -295,7 +296,7 @@ pub async fn unmap_port(
 /// # Errors
 ///
 /// Described by the Error component of the Result
-#[allow(clippy::let_and_return)]
+#[expect(clippy::let_and_return, reason = "For debugging purposes")]
 pub async fn unmap_all_ports(
     protocol: MappingProtocol,
     gateway_ip: Option<Ipv4Addr>,
@@ -317,7 +318,7 @@ pub async fn unmap_all_ports(
 async fn send_request(
     gateway_socket: &UdpSocket,
     gateway_ip: Ipv4Addr,
-    request: &(impl Request + zerocopy::AsBytes),
+    request: &(impl zerocopy::Immutable + zerocopy::IntoBytes),
 ) -> Result<usize, NATPMPError> {
     gateway_socket
         .send_to(request.as_bytes(), (gateway_ip, NATPMP_PORT))
@@ -325,7 +326,7 @@ async fn send_request(
         .map_err(Into::into)
 }
 
-async fn send_request_with_retry<R: Request + zerocopy::AsBytes>(
+async fn send_request_with_retry<R: Request + zerocopy::Immutable + zerocopy::IntoBytes>(
     gateway_ip: Ipv4Addr,
     request: R,
     retry: u32,

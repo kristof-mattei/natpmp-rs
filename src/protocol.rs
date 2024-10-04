@@ -1,8 +1,8 @@
-use zerocopy::AsBytes;
+use zerocopy::{Immutable, IntoBytes};
 
 #[derive(Debug, Copy, Clone)]
 #[allow(clippy::module_name_repetitions)]
-#[derive(AsBytes)]
+#[derive(IntoBytes, Immutable)]
 #[repr(u8)]
 pub enum MappingProtocol {
     UDP = 1,

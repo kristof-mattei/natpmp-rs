@@ -1,4 +1,4 @@
-use zerocopy::AsBytes;
+use zerocopy::{Immutable, IntoBytes};
 
 use super::Request;
 use crate::responses::ExternalAddressResponse;
@@ -13,7 +13,7 @@ impl Request for ExternalAddressRequest {
     }
 }
 
-#[derive(AsBytes)]
+#[derive(IntoBytes, Immutable)]
 #[repr(C)]
 pub(crate) struct ExternalAddressRequest {
     version: u8,
