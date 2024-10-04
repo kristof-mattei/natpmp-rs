@@ -1,13 +1,13 @@
 use std::num::NonZeroU16;
 
-use zerocopy::AsBytes;
+use zerocopy::{Immutable, IntoBytes};
 
 use super::Request;
 use crate::protocol::MappingProtocol;
 use crate::responses::MappingResponse;
 use crate::VERSION;
 
-#[derive(AsBytes)]
+#[derive(IntoBytes, Immutable)]
 #[repr(C)]
 pub(crate) struct UnmapPortRequest {
     version: u8,
