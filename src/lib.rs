@@ -48,13 +48,13 @@ fn get_gateway_addr() -> Result<Ipv4Addr, NATPMPError> {
     Err(NATPMPError::Generic("No default gateway found".into()))
 }
 
-/// Takes a gateway address string and returns a non-blocking UDP
-/// socket to communicate with its NAT-PMP implementation on `crate::NATPMP_PORT`.
-///
-/// # Example:
-/// ```
-/// let socket = connect_gateway("10.0.1.1")?;
-/// ```
+// /// Takes a gateway address string and returns a non-blocking UDP
+// /// socket to communicate with its NAT-PMP implementation on `crate::NATPMP_PORT`.
+// ///
+// /// # Example:
+// /// ```
+// /// let socket = connect_gateway("10.0.1.1")?;
+// /// ```
 // async fn connect_gateway(gateway_ip: Ipv4Addr) -> Result<UdpSocket, NATPMPError> {
 //     // old code because I'll need it later
 
