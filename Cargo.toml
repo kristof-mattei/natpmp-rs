@@ -50,7 +50,7 @@ tracing-error = "0.2.1"
 socket2 = "0.5.8"
 libc = "0.2.167"
 # netdev = "0.31.0"
-zerocopy = { version = "0.8.12", features = ["derive"] }
+zerocopy = { version = "0.8.13", features = ["derive"] }
 
 # We compile the Docker container with musl to get a static library. Smaller, faster.
 # BUT that means that we need to include openssl
