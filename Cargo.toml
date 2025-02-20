@@ -2,10 +2,10 @@
 name = "natpmp-rs"
 # don't change this, it's updated before an actual build by update-version.sh
 version = "0.0.0-development"
-edition = "2021"
+edition = "2024"
 rust-version = "1.85.0"
 authors = ["Kristof Mattei"]
-description = "Rust seed application"
+description = "natpmp-rs"
 license-file = "LICENSE"
 categories = ["starter", "end-to-end"]
 keywords = ["integrity", "end-to-end", "starter", "docker", "release"]
@@ -14,8 +14,15 @@ repository = "https://github.com/kristof-mattei/natpmp-rs"
 [lints.clippy]
 # don't stop from compiling / running
 all = "warn"
-pedantic = "warn"
 cargo = "warn"
+complexity = "warn"
+correctness = "warn"
+pedantic = "warn"
+perf = "warn"
+# restriction = "warn"
+style = "warn"
+suspicious = "warn"
+
 # this one causes confusion when combining variables (`foo`) and
 # dereferenced variables (`foo.bar`). The latter cannot be inlined
 # so we don't inline anything
@@ -25,17 +32,12 @@ uninlined-format-args = { level = "allow", priority = 127 }
 let_underscore_drop = { level = "deny", priority = 127 }
 non_ascii_idents = { level = "deny", priority = 127 }
 
-[profile.dev.package.backtrace]
-opt-level = 3
-
 [features]
 coverage = []
 
 [dependencies]
 bytes = "1.10.0"
-color-eyre = { git = "https://github.com/kristof-mattei/eyre", branch = "bump-backtrace-rs", features = [
-    "track-caller",
-] }
+color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "c4ee249f7c51dc6452e8704ae8d117d90d6eeebc" }
 thiserror = "2.0.11"
 tokio = { version = "1.43.0", features = [
     "net",
@@ -52,9 +54,6 @@ libc = "0.2.169"
 # netdev = "0.31.0"
 zerocopy = { version = "0.8.20", features = ["derive"] }
 
-# We compile the Docker container with musl to get a static library. Smaller, faster.
-# BUT that means that we need to include openssl
-# Documentation on the syntax:
-# https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#platform-specific-dependencies
-[target.'cfg(all(target_arch = "x86_64", target_os="linux", target_env="musl"))'.dependencies]
+# OpenSSL for musl
+# [target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
 # openssl = { version = "0.10.36", features = ["vendored"] }
