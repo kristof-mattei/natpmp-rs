@@ -1,8 +1,8 @@
 use zerocopy::{Immutable, IntoBytes};
 
 use super::Request;
-use crate::responses::ExternalAddressResponse;
 use crate::VERSION;
+use crate::responses::ExternalAddressResponse;
 
 impl Request for ExternalAddressRequest {
     type Response = ExternalAddressResponse;

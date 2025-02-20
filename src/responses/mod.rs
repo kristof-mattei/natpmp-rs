@@ -3,10 +3,10 @@ use std::num::NonZeroU16;
 
 use bytes::{Buf, BytesMut};
 
+use crate::VERSION;
 use crate::errors::{NATPMPError, NATPMPResultError};
 use crate::protocol::MappingProtocol;
 use crate::requests::Request;
-use crate::VERSION;
 
 pub(crate) trait Response {
     const SIZE: usize;
@@ -77,7 +77,8 @@ pub struct MappingResponse {
 
 impl std::fmt::Display for MappingResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f,
+        write!(
+            f,
             "Protocol: {}, internal port: {}, external port {}, lifetime: {}, secondssince epoch: {}",
             self.protocol,
             self.internal_port,
