@@ -4,9 +4,9 @@ use std::num::NonZeroU16;
 
 use natpmp_rs::protocol::MappingProtocol;
 use natpmp_rs::{get_public_address, map_port};
+use tracing_subscriber::EnvFilter;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
-use tracing_subscriber::EnvFilter;
 
 /// starts all the tasks, such as the web server, the key refresh, ...
 /// ensures all tasks are gracefully shutdown in case of error, ctrl+c or sigterm

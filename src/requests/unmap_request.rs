@@ -3,9 +3,9 @@ use std::num::NonZeroU16;
 use zerocopy::{Immutable, IntoBytes};
 
 use super::Request;
+use crate::VERSION;
 use crate::protocol::MappingProtocol;
 use crate::responses::MappingResponse;
-use crate::VERSION;
 
 #[derive(IntoBytes, Immutable)]
 #[repr(C)]

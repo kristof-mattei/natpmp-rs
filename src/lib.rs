@@ -16,7 +16,7 @@ use requests::unmap_request::UnmapPortRequest;
 use responses::parse_raw_response;
 use socket2::Socket;
 use tokio::net::UdpSocket;
-use tracing::{event, Level};
+use tracing::{Level, event};
 
 use crate::errors::NATPMPError;
 use crate::requests::Request;
