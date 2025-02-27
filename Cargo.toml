@@ -52,7 +52,7 @@ tracing-error = "0.2.1"
 socket2 = "0.5.8"
 libc = "0.2.170"
 # netdev = "0.31.0"
-zerocopy = { version = "0.8.20", features = ["derive"] }
+zerocopy = { version = "0.8.21", features = ["derive"] }
 
 # OpenSSL for musl
 # [target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
