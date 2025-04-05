@@ -42,7 +42,7 @@ coverage = []
 bytes = "1.10.1"
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "c4ee249f7c51dc6452e8704ae8d117d90d6eeebc" }
 thiserror = "2.0.12"
-tokio = { version = "1.44.1", features = [
+tokio = { version = "1.44.2", features = [
     "net",
     "rt-multi-thread",
     "macros",
