@@ -45,7 +45,7 @@ color-eyre = "0.6.4"
 libc = "0.2.172"
 socket2 = "0.5.9"
 thiserror = "2.0.12"
-tokio = { version = "1.45.0", features = [
+tokio = { version = "1.45.1", features = [
     "net",
     "rt-multi-thread",
     "macros",
