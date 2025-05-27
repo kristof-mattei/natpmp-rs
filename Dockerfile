@@ -1,5 +1,5 @@
 # Rust toolchain setup
-FROM --platform=${BUILDPLATFORM} rust:1.87.0@sha256:cfd9d336b2a0ba841008093e06b603e0bc46cdc33b2ec639d5a139226ddfff43 AS rust-base
+FROM --platform=${BUILDPLATFORM} rust:1.87.0@sha256:25038aa450210c53cf05dbf7b256e1df1ee650a58bb46cbc7d6fa79c1d98d083 AS rust-base
 
 ARG APPLICATION_NAME
 
@@ -24,7 +24,7 @@ ARG TARGET=aarch64-unknown-linux-musl
 
 FROM rust-${TARGETPLATFORM//\//-} AS rust-cargo-build
 
-COPY ./setup-env.sh .
+COPY ./build-scripts/setup-env.sh .
 RUN --mount=type=cache,id=apt-cache,from=rust-base,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=apt-lib,from=rust-base,target=/var/lib/apt,sharing=locked \
     ./setup-env.sh
@@ -40,7 +40,7 @@ RUN cargo new ${APPLICATION_NAME}
 
 WORKDIR /build/${APPLICATION_NAME}
 
-COPY ./build.sh .
+COPY ./build-scripts/build.sh .
 
 COPY .cargo ./.cargo
 COPY Cargo.toml Cargo.lock ./
