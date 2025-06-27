@@ -215,7 +215,7 @@ pub async fn map_udp_port(
 /// # Errors
 ///
 /// Described by the Error component of the Result
-#[allow(clippy::let_and_return)]
+#[expect(clippy::let_and_return)]
 pub async fn map_port(
     protocol: MappingProtocol,
     private_port: NonZeroU16,
@@ -255,7 +255,7 @@ pub async fn map_port(
 /// # Errors
 ///
 /// Described by the Error component of the Result
-#[allow(clippy::let_and_return)]
+#[expect(clippy::let_and_return)]
 pub async fn unmap_port(
     protocol: MappingProtocol,
     private_port: NonZeroU16,

@@ -66,7 +66,6 @@ pub(crate) fn parse_raw_response<R: Request>(
 }
 
 #[derive(Debug)]
-#[allow(dead_code)]
 pub struct MappingResponse {
     protocol: MappingProtocol,
     internal_port: NonZeroU16,
@@ -114,7 +113,7 @@ impl Response for MappingResponse {
 }
 
 #[derive(Debug)]
-#[allow(dead_code)]
+#[expect(dead_code)]
 pub struct ExternalAddressResponse {
     seconds_since_epoch: u32,
     pub ipv4_address: Ipv4Addr,
