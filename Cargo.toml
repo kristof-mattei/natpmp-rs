@@ -6,10 +6,11 @@ edition = "2024"
 rust-version = "1.88.0"
 authors = ["Kristof Mattei"]
 description = "natpmp-rs"
-license-file = "LICENSE"
+license = "MIT"
 categories = ["starter", "end-to-end"]
 keywords = ["integrity", "end-to-end", "starter", "docker", "release"]
 repository = "https://github.com/kristof-mattei/natpmp-rs"
+include = ["src/**", "/LICENSE", "/LICENSE-*"]
 
 [lints.clippy]
 # don't stop from compiling / running
