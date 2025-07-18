@@ -1,8 +1,6 @@
 use zerocopy::{Immutable, IntoBytes};
 
-#[derive(Debug, Copy, Clone)]
-#[expect(clippy::module_name_repetitions)]
-#[derive(IntoBytes, Immutable)]
+#[derive(Debug, Copy, Clone, IntoBytes, Immutable)]
 #[repr(u8)]
 pub enum MappingProtocol {
     UDP = 1,
@@ -14,7 +12,7 @@ impl std::fmt::Display for MappingProtocol {
         write!(
             f,
             "{}",
-            match self {
+            match *self {
                 MappingProtocol::UDP => "UDP",
                 MappingProtocol::TCP => "TCP",
             }

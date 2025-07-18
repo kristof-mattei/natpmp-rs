@@ -1,0 +1,6 @@
+absolute-paths-allowed-crates = [
+    "color_eyre",
+    "std",
+    "tokio",
+    "tracing_subscriber",
+]
