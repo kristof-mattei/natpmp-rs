@@ -20,7 +20,7 @@ use tracing::{Level, event};
 
 use crate::errors::NATPMPError;
 use crate::requests::Request;
-use crate::responses::{MappingResponse, Response};
+use crate::responses::{MappingResponse, Response as _};
 
 const VERSION: u8 = 0;
 const NATPMP_PORT: u16 = 5351;
@@ -215,7 +215,6 @@ pub async fn map_udp_port(
 /// # Errors
 ///
 /// Described by the Error component of the Result
-#[expect(clippy::let_and_return)]
 pub async fn map_port(
     protocol: MappingProtocol,
     private_port: NonZeroU16,
@@ -255,7 +254,6 @@ pub async fn map_port(
 /// # Errors
 ///
 /// Described by the Error component of the Result
-#[expect(clippy::let_and_return)]
 pub async fn unmap_port(
     protocol: MappingProtocol,
     private_port: NonZeroU16,
@@ -336,7 +334,7 @@ async fn send_request_with_retry<R: Request + zerocopy::Immutable + zerocopy::In
         let _size = send_request(&socket, gateway_ip, &request).await?;
 
         match tokio::time::timeout(
-            Duration::from_millis(BASE_TIMEOUT * 2u64.pow(tries)),
+            Duration::from_millis(BASE_TIMEOUT * 2_u64.pow(tries)),
             socket.recv_from(&mut buffer),
         )
         .await

@@ -1,7 +1,7 @@
 use std::net::Ipv4Addr;
 use std::num::NonZeroU16;
 
-use bytes::{Buf, BytesMut};
+use bytes::{Buf as _, BytesMut};
 
 use crate::VERSION;
 use crate::errors::{NATPMPError, NATPMPResultError};
@@ -113,8 +113,8 @@ impl Response for MappingResponse {
 }
 
 #[derive(Debug)]
-#[expect(dead_code)]
 pub struct ExternalAddressResponse {
+    #[expect(unused, reason = "Not implemented")]
     seconds_since_epoch: u32,
     pub ipv4_address: Ipv4Addr,
 }
