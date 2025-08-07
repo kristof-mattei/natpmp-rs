@@ -38,10 +38,11 @@ fn get_gateway_addr() -> Result<Ipv4Addr, NATPMPError> {
         let destination = iter.next().map(|v| u32::from_str_radix(v, 16));
         let gateway = iter.next().map(|v| u32::from_str_radix(v, 16));
 
-        if let (Some(Ok(d)), Some(Ok(g))) = (destination, gateway) {
-            if d == 0 && g != 0 {
-                return Ok(g.to_be().into());
-            }
+        if let (Some(Ok(d)), Some(Ok(g))) = (destination, gateway)
+            && d == 0
+            && g != 0
+        {
+            return Ok(g.to_be().into());
         }
     }
 
