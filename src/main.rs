@@ -11,6 +11,21 @@ use tracing_subscriber::util::SubscriberInitExt as _;
 /// starts all the tasks, such as the web server, the key refresh, ...
 /// ensures all tasks are gracefully shutdown in case of error, ctrl+c or sigterm
 async fn start_tasks() -> Result<(), color_eyre::Report> {
+    let name = env!("CARGO_PKG_NAME");
+    let version = env!("CARGO_PKG_VERSION");
+
+    println!(
+        "{} v{} - built for {}-{}",
+        name,
+        version,
+        std::env::var("TARGETARCH")
+            .as_deref()
+            .unwrap_or("unknown-arch"),
+        std::env::var("TARGETVARIANT")
+            .as_deref()
+            .unwrap_or("base variant")
+    );
+
     let result = map_port(
         MappingProtocol::TCP,
         NonZeroU16::new(9_999).unwrap(),
