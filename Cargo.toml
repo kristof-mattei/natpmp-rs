@@ -15,9 +15,8 @@ include = ["src/**", "/LICENSE", "/LICENSE-*"]
 [dependencies]
 bytes = "1.10.1"
 color-eyre = "0.6.5"
-libc = "0.2.176"
 socket2 = "0.6.0"
-thiserror = "2.0.16"
+thiserror = "2.0.17"
 tokio = { version = "1.47.1", features = [
     "net",
     "rt-multi-thread",
