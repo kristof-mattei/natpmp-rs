@@ -116,7 +116,14 @@ impl Response for MappingResponse {
 pub struct ExternalAddressResponse {
     #[expect(unused, reason = "Not implemented")]
     seconds_since_epoch: u32,
-    pub ipv4_address: Ipv4Addr,
+    ipv4_address: Ipv4Addr,
+}
+
+impl ExternalAddressResponse {
+    #[must_use]
+    pub fn ipv4_address(&self) -> Ipv4Addr {
+        self.ipv4_address
+    }
 }
 
 impl Response for ExternalAddressResponse {
