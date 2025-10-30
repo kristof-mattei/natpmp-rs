@@ -132,7 +132,7 @@ pub async fn get_public_address(
     )
     .await;
 
-    address_response.map(|r| r.ipv4_address)
+    address_response.map(|r| r.ipv4_address())
 }
 
 /// A high-level wrapper to `map_port()` that requests a mapping
