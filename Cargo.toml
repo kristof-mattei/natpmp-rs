@@ -35,7 +35,7 @@ tracing = "0.1.41"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
 # netdev = "0.31.0"
-zerocopy = { version = "0.8.28", features = ["derive"] }
+zerocopy = { version = "0.8.30", features = ["derive"] }
 
 [lints.clippy]
 # don't stop from compiling / running
