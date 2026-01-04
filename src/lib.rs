@@ -108,7 +108,7 @@ fn build_socket() -> Result<UdpSocket, NATPMPError> {
 /// the current host by querying the NAT-PMP gateway.
 ///
 /// # Arguments
-/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or autodetect the IP via `get_gateway_addr()`
+/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or auto-detect the IP via `get_gateway_addr()`
 /// * `retry` - the number of times to retry the request if unsuccessful, defaults to 9 as per specification.
 ///
 /// # Returns
@@ -144,7 +144,7 @@ pub async fn get_public_address(
 /// * `public_port` - the public port of the mapping requested
 /// * `private_port` - the private port of the mapping requested
 /// * `lifetime` - the duration of the mapping in seconds, defaults to 7200, per specification.
-/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or autodetect the IP via `get_gateway_addr()`
+/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or auto-detect the IP via `get_gateway_addr()`
 /// * `retry` - the number of times to retry the request if unsuccessful, defaults to 9 as per specification.
 ///
 /// # Errors
@@ -177,7 +177,7 @@ pub async fn map_tcp_port(
 /// * `public_port` - the public port of the mapping requested
 /// * `private_port` - the private port of the mapping requested
 /// * `lifetime` - the duration of the mapping in seconds, defaults to 7200, per specification.
-/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or autodetect the IP via `get_gateway_addr()`
+/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or auto-detect the IP via `get_gateway_addr()`
 /// * `retry` - the number of times to retry the request if unsuccessful, defaults to 9 as per specification.
 ///
 /// # Errors
@@ -210,7 +210,7 @@ pub async fn map_udp_port(
 /// * `private_port` - the private port of the mapping requested
 /// * `public_port` - the public port of the mapping requested
 /// * `lifetime` - the duration of the mapping in seconds, defaults to 7200, per specification.
-/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or autodetect the IP via `get_gateway_addr()`
+/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or auto-detect the IP via `get_gateway_addr()`
 /// * `retry` - the number of times to retry the request if unsuccessful, defaults to 9 as per specification.
 ///
 /// # Errors
@@ -249,7 +249,7 @@ pub async fn map_port(
 /// # Arguments
 /// * `protocol` - `Protocol::TCP` or `Protocol::UDP`
 /// * `private_port` - the private port of the mapping requested
-/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or autodetect the IP via `get_gateway_addr()`
+/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or auto-detect the IP via `get_gateway_addr()`
 /// * `retry` - the number of times to retry the request if unsuccessful, defaults to 9 as per specification.
 ///
 /// # Errors
@@ -280,7 +280,7 @@ pub async fn unmap_port(
 ///
 /// # Arguments
 /// * `protocol` - `Protocol::TCP` or `Protocol::UDP`
-/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or autodetect the IP via `get_gateway_addr()`
+/// * `gateway_ip` - the IP to the NAT-PMP compatible gateway, or auto-detect the IP via `get_gateway_addr()`
 /// * `retry` - the number of times to retry the request if unsuccessful, defaults to 9 as per specification.
 ///
 /// # Errors
