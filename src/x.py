@@ -13,7 +13,7 @@ Provides functions to interact with NAT-PMP gateways implementing version 0
 of the NAT-PMP draft specification.
 
 This version does not completely implement the draft standard.
-* It does not provide functionality to listen for address change packets. 
+* It does not provide functionality to listen for address change packets.
 * It does not have a proper request queuing system, meaning that
 multiple requests may be issued in parallel, against spec recommendations.
 
@@ -102,7 +102,7 @@ NATPMP_ERROR_DICT = {
 class NATPMPRequest(object):
     """Represents a basic NAT-PMP request.  This currently consists of the
        1-byte fields version and opcode.
-       
+
        Other requests are derived from NATPMPRequest.
     """
     initial_timeout = 0.250  # seconds
@@ -159,7 +159,7 @@ class NATPMPResponse(object):
 
     def is_successful(self):
         return self.result == NATPMP_RESULT_SUCCESS
-        
+
     def __str__(self):
         return "NATPMPResponse(%d, %d, %d, $d)".format(self.version,
                                                        self.opcode,
@@ -171,7 +171,7 @@ class PublicAddressResponse(NATPMPResponse):
     """Represents a NAT-PMP response from the local gateway to a
        public-address request.  It has one additional 4-byte field
        containing the IP returned.
-       
+
        The member variable ip contains the Python-friendly string form, while
        ip_int contains the same in the original 4-byte unsigned int.
     """
@@ -206,7 +206,7 @@ class PortMapResponse(NATPMPResponse):
         version, opcode, result, sec_since_epoch, self.private_port,\
             self.public_port, self.lifetime = struct.unpack('!BBHIHHI', data)
         NATPMPResponse.__init__(self, version, opcode, result, sec_since_epoch)
-    
+
     def __str__(self):
         msg = "PortMapResponse: version %d, opcode %d (%d),"
         msg += " result %d, ssec %d, private_port %d, public port %d,"
@@ -288,7 +288,7 @@ def get_gateway_socket(gateway):
     """Takes a gateway address string and returns a non-blocking UDP
        socket to communicate with its NAT-PMP implementation on
        NATPMP_PORT.
-       
+
        e.g. addr = get_gateway_socket('10.0.1.1')
     """
     if not gateway:
@@ -304,7 +304,7 @@ def get_public_address(gateway_ip=None, retry=9):
     """A high-level function that returns the public interface IP of
        the current host by querying the NAT-PMP gateway.  IP is
        returned as string.
-       
+
        Takes two possible keyword arguments:
             gateway_ip - the IP to the NAT-PMP compatible gateway.
                          Defaults to using auto-detection function
@@ -335,7 +335,7 @@ def map_tcp_port(public_port, private_port, lifetime=3600, gateway_ip=None,
     """A high-level wrapper to map_port() that requests a mapping
        for a public TCP port on the NAT to a private TCP port on this host.
        Returns the complete response on success.
-       
+
             public_port - the public port of the mapping requested
             private_port - the private port of the mapping requested
             lifetime - the duration of the mapping in seconds.
@@ -358,7 +358,7 @@ def map_udp_port(public_port, private_port, lifetime=3600, gateway_ip=None,
     """A high-level wrapper to map_port() that requests a mapping for
        a public UDP port on the NAT to a private UDP port on this host.
        Returns the complete response on success.
-       
+
             public_port - the public port of the mapping requested
             private_port - the private port of the mapping requested
             lifetime - the duration of the mapping in seconds.
@@ -380,7 +380,7 @@ def map_port(protocol, public_port, private_port, lifetime=3600,
              gateway_ip=None, retry=9, use_exception=True):
     """A function to map public_port to private_port of protocol.
        Returns the complete response on success.
-       
+
             protocol - NATPMP_PROTOCOL_UDP or NATPMP_PROTOCOL_TCP
             public_port - the public port of the mapping requested
             private_port - the private port of the mapping requested
