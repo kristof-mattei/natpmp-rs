@@ -5,7 +5,10 @@ pub(crate) mod mapping_request;
 pub(crate) mod unmap_all_request;
 pub(crate) mod unmap_request;
 
+type Opcode = u8;
+
 pub(crate) trait Request {
     type Response: Response;
-    fn get_opcode(&self) -> u8;
+
+    fn opcode(&self) -> Opcode;
 }

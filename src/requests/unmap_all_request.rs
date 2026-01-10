@@ -35,7 +35,7 @@ impl UnmapAllPortsRequest {
 impl Request for UnmapAllPortsRequest {
     type Response = MappingResponse;
 
-    fn get_opcode(&self) -> u8 {
+    fn opcode(&self) -> u8 {
         self.protocol.into()
     }
 }

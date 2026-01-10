@@ -48,7 +48,7 @@ pub(crate) fn parse_raw_response<R: Request>(
     //     return Err(NATPMPError::Response(NATPMPResultError::UnsupportedOpcode));
     // }
 
-    if opcode & 0x7f != request.get_opcode() {
+    if opcode & 0x7f != request.opcode() {
         // if we hit this the response received did match the request sent
         todo!()
     }
