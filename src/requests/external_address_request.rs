@@ -7,7 +7,7 @@ use crate::responses::ExternalAddressResponse;
 impl Request for ExternalAddressRequest {
     type Response = ExternalAddressResponse;
 
-    fn get_opcode(&self) -> u8 {
+    fn opcode(&self) -> u8 {
         // or self.opcode
         0
     }

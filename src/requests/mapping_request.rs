@@ -21,7 +21,7 @@ pub(crate) struct MappingRequest {
 impl Request for MappingRequest {
     type Response = MappingResponse;
 
-    fn get_opcode(&self) -> u8 {
+    fn opcode(&self) -> u8 {
         self.protocol.into()
     }
 }
