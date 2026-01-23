@@ -103,8 +103,8 @@ fn main() -> Result<(), color_eyre::Report> {
     result
 }
 
-/// starts all the tasks, such as the web server, the key refresh, ...
-/// ensures all tasks are gracefully shutdown in case of error, ctrl-c or `SIGTERM`
+/// Starts all the tasks, such as the web server, the key refresh, ...
+/// ensures all tasks are gracefully shutdown in case of error, ctrl-c or `SIGTERM`.
 async fn start_tasks() -> Result<(), color_eyre::Report> {
     print_header();
 
