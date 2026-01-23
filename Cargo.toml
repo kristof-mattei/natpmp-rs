@@ -22,7 +22,7 @@ bytes = "1.11.0"
 color-eyre = "0.6.5"
 console-subscriber = { version = "0.5.0", optional = true }
 mimalloc = { version = "0.1.48", features = ["v3"] }
-socket2 = "0.6.1"
+socket2 = "0.6.2"
 thiserror = "2.0.18"
 tokio = { version = "1.49.0", features = [
     "net",
