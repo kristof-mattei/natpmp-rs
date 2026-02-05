@@ -70,7 +70,7 @@ fn print_header() {
     );
 }
 
-fn main() -> Result<(), color_eyre::Report> {
+fn main() -> Result<(), eyre::Report> {
     // set up .env
     // dotenv().expect(".env file not found");
 
@@ -105,7 +105,7 @@ fn main() -> Result<(), color_eyre::Report> {
 
 /// starts all the tasks, such as the web server, the key refresh, ...
 /// ensures all tasks are gracefully shutdown in case of error, ctrl-c or `SIGTERM`
-async fn start_tasks() -> Result<(), color_eyre::Report> {
+async fn start_tasks() -> Result<(), eyre::Report> {
     print_header();
 
     let result = map_port(
@@ -121,8 +121,8 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     .await;
 
     match result {
-        Ok(ok) => {
-            println!("{}", ok);
+        Ok(response) => {
+            println!("{}", response);
         },
         Err(error) => {
             println!("{}", error);
@@ -132,8 +132,8 @@ async fn start_tasks() -> Result<(), color_eyre::Report> {
     let result = get_public_address(Ipv4Addr::new(192, 168, 12, 1).into(), None).await;
 
     match result {
-        Ok(ok) => {
-            println!("{}", ok);
+        Ok(ip_addr) => {
+            println!("{}", ip_addr);
         },
         Err(error) => {
             println!("{}", error);
