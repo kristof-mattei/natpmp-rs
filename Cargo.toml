@@ -14,8 +14,6 @@ keywords = ["integrity", "end-to-end", "starter", "docker", "release"]
 repository = "https://github.com/kristof-mattei/natpmp-rs"
 include = ["crates/**", "/LICENSE", "/LICENSE-*"]
 
-[workspace.dependencies]
-
 [workspace.metadata.spellcheck]
 config = "spellcheck.toml"
 
