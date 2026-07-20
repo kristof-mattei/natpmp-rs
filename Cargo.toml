@@ -14,9 +14,6 @@ keywords = ["integrity", "end-to-end", "starter", "docker", "release"]
 repository = "https://github.com/kristof-mattei/natpmp-rs"
 include = ["crates/**", "/LICENSE", "/LICENSE-*"]
 
-[workspace.metadata.spellcheck]
-config = "spellcheck.toml"
-
 [workspace.lints.clippy]
 # don't stop from compiling / running
 all = "warn"
