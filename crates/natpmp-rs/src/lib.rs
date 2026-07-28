@@ -64,7 +64,7 @@ fn get_gateway_addr() -> Result<Ipv4Addr, NATPMPError> {
 //     // const MULTICAST_ADDRESS: Ipv4Addr = Ipv4Addr::new(224, 0, 0, 1);
 //     // ^ Above doesn't work. TODO...
 
-//     // use socket so that we don't have to bind to any address explicitely
+//     // use socket so that we don't have to bind to any address explicitly
 //     let socket = Socket::new(
 //         socket2::Domain::IPV4,
 //         socket2::Type::DGRAM,
@@ -87,7 +87,7 @@ fn build_socket() -> Result<UdpSocket, NATPMPError> {
     // const MULTICAST_ADDRESS: Ipv4Addr = Ipv4Addr::new(224, 0, 0, 1);
     // ^ Above doesn't work. TODO...
 
-    // use socket so that we don't have to bind to any address explicitely
+    // use socket so that we don't have to bind to any address explicitly
     let socket = Socket::new(
         socket2::Domain::IPV4,
         socket2::Type::DGRAM,
