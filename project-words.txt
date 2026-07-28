@@ -16,7 +16,6 @@ dorny
 endfor
 endmacro
 errorlens
-explicitely
 grcov
 HHHI
 hubot
