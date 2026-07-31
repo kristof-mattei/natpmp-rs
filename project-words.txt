@@ -7,7 +7,6 @@ bkeepers
 buildcache
 Cinstrument
 cocogitto
-communiate
 Ctarget
 cttc
 cves
@@ -36,7 +35,6 @@ nonblocking
 ntoa
 nvmrc
 pathbuf
-pids
 postprocessors
 prereleased
 profraw
@@ -46,8 +44,6 @@ rlist
 rustflags
 samply
 sccache
-secondssince
-sensical
 skopeo
 ssec
 startswith
