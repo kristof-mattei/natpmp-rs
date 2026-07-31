@@ -78,7 +78,7 @@ impl std::fmt::Display for MappingResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "Protocol: {}, internal port: {}, external port {}, lifetime: {}, secondssince epoch: {}",
+            "Protocol: {}, internal port: {}, external port {}, lifetime: {}, seconds since epoch: {}",
             self.protocol,
             self.internal_port,
             self.external_port,

@@ -9,11 +9,11 @@ use thiserror::Error;
 pub enum NATPMPError {
     #[error("NAT Gateway error response as per RFC-6886")]
     Response(NATPMPResultError),
-    #[error("Network error while trying to communiate with NAT Gateway")]
+    #[error("Network error while trying to communicate with NAT Gateway")]
     Network(#[from] io::Error),
     #[error("NAT Gateway does not support NAT-PMP (inferred when calls fail after x retries)")]
     Unsupported,
-    #[error("NAT Gateway responded with non-sensical response")]
+    #[error("NAT Gateway responded with nonsensical response")]
     Deserialize(String),
     #[error("Generic error that doesn't fit in anything else")]
     Generic(String),
