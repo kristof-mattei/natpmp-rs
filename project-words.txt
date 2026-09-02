@@ -6,6 +6,7 @@ bbhii
 bkeepers
 buildcache
 cinstrument
+cliffignore
 ctarget
 cttc
 cves
@@ -21,12 +22,10 @@ idents
 iface
 irtt
 kristof
-lldb
 mattei
 mimalloc
 monomorphization
 multiplatform
-mypy
 natpmp
 netdev
 nextest
@@ -37,6 +36,7 @@ postprocessors
 prereleased
 profraw
 pyflakes
+rawfile
 retag
 retagging
 rhysd
@@ -46,6 +46,7 @@ samply
 sccache
 skopeo
 skopeo's
+slurpfile
 ssec
 startswith
 striptags
