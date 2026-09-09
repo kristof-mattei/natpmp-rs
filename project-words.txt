@@ -22,6 +22,7 @@ idents
 iface
 irtt
 kristof
+lintian
 mattei
 mimalloc
 monomorphization
