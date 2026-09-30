@@ -25,6 +25,7 @@ kristof
 lintian
 mattei
 mimalloc
+mkhl
 monomorphization
 multiplatform
 natpmp
